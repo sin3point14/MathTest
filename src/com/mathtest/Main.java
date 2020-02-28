@@ -6,6 +6,17 @@ import static org.terasology.math.JomlUtil.from;
 
 public class Main {
 
+    public static void lineNO() {
+        int lineNumber;
+        try {
+            lineNumber = Thread.currentThread().getStackTrace()[4].getLineNumber();
+        }
+        catch(Exception e) {
+            lineNumber = Thread.currentThread().getStackTrace()[3].getLineNumber();
+        }
+        System.out.print(lineNumber);
+    }
+
     public static void print(org.terasology.math.geom.Matrix4f in) {
         System.out.printf("%f %f %f %f%n%f %f %f %f%n%f %f %f %f%n%f %f %f %f%n",
                 in.m00, in.m01, in.m02, in.m03,
@@ -14,26 +25,43 @@ public class Main {
                 in.m30, in.m31, in.m32, in.m33
         );
     }
+    public static void print(org.terasology.math.geom.Vector4f in) {
+        System.out.printf("%f %f %f %f%n",
+                in.x, in.y, in.z, in.w
+        );
+    }
     public static void print(org.joml.Matrix4f in) {
-       print(from(in));
+        print(from(in));
+    }
+    public static void print(org.joml.Vector4f in) {
+        print(from(in));
     }
     public static void equals(org.terasology.math.geom.Matrix4f test1, org.joml.Matrix4f test2) {
         equals(test2, test1);
     }
     public static void equals(org.joml.Matrix4f test1, org.terasology.math.geom.Matrix4f test2) {
-        int lineNumber;
-        try {
-            lineNumber = Thread.currentThread().getStackTrace()[3].getLineNumber();
-        }
-        catch(Exception e) {
-            lineNumber = Thread.currentThread().getStackTrace()[2].getLineNumber();
-        }
+        lineNO();
         org.joml.Matrix4f temp = from(test2);
         if(temp.equals(test1)) {
-            System.out.println(lineNumber+": Passed!");
+            System.out.println(": Passed!");
         }
         else {
-            System.out.println(lineNumber+": Failed -> ");
+            System.out.println(": Failed -> ");
+            print(test1);
+            print(test2);
+        }
+    }
+    public static void equals(org.terasology.math.geom.Vector4f test1, org.joml.Vector4f test2) {
+        equals(test2, test1);
+    }
+    public static void equals(org.joml.Vector4f test1, org.terasology.math.geom.Vector4f test2) {
+        lineNO();
+        org.joml.Vector4f temp = from(test2);
+        if(temp.equals(test1)) {
+            System.out.println(": Passed!");
+        }
+        else {
+            System.out.println(": Failed -> ");
             print(test1);
             print(test2);
         }
@@ -49,8 +77,8 @@ public class Main {
         teraMat.mul(teraMatMul);
         jomlMatMul.mul(jomlMat);
         equals(teraMat, jomlMatMul);
-        org.joml.Vector4f jomlVec;
-        org.terasology.math.geom.Vector4f teraVec;
-
+        org.joml.Vector4f jomlVec = new org.joml.Vector4f(1f, 4f, -3f, -9f);
+        org.terasology.math.geom.Vector4f teraVec = new org.terasology.math.geom.Vector4f(1f, 4f, -3f, -9f);
+        equals(jomlVec, teraVec);
     }
 }
