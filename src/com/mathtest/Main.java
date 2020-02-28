@@ -40,14 +40,17 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        org.terasology.math.geom.Matrix4f test1 = new org.terasology.math.geom.Matrix4f(0f,1f,2f,3f,4f,5f,6f,7f,8f,9f,10f,11f,12f,13f,14f,15f);
-        org.joml.Matrix4f test2 = new org.joml.Matrix4f(0f,1f,2f,3f,4f,5f,6f,7f,8f,9f,10f,11f,12f,13f,14f,15f);
-        equals(test1, test2);
-        equals(test2, test1);
-        org.terasology.math.geom.Matrix4f test1mul = new org.terasology.math.geom.Matrix4f(2f,3f,4f,5f,1f,6f,3f,7f,8f,3f,5f,1f,4f,2f,7f,3f);
-        org.joml.Matrix4f test2mul = new org.joml.Matrix4f(2f,3f,4f,5f,1f,6f,3f,7f,8f,3f,5f,1f,4f,2f,7f,3f);
-        test1.mul(test1mul);
-        test2mul.mul(test2);
-        equals(test1, test2mul);
+        org.terasology.math.geom.Matrix4f teraMat = new org.terasology.math.geom.Matrix4f(0f,1f,2f,3f,4f,5f,6f,7f,8f,9f,10f,11f,12f,13f,14f,15f);
+        org.joml.Matrix4f jomlMat = new org.joml.Matrix4f(0f,1f,2f,3f,4f,5f,6f,7f,8f,9f,10f,11f,12f,13f,14f,15f);
+        equals(teraMat, jomlMat);
+        equals(jomlMat, teraMat);
+        org.terasology.math.geom.Matrix4f teraMatMul = new org.terasology.math.geom.Matrix4f(2f,3f,4f,5f,1f,6f,3f,7f,8f,3f,5f,1f,4f,2f,7f,3f);
+        org.joml.Matrix4f jomlMatMul = new org.joml.Matrix4f(2f,3f,4f,5f,1f,6f,3f,7f,8f,3f,5f,1f,4f,2f,7f,3f);
+        teraMat.mul(teraMatMul);
+        jomlMatMul.mul(jomlMat);
+        equals(teraMat, jomlMatMul);
+        org.joml.Vector4f jomlVec;
+        org.terasology.math.geom.Vector4f teraVec;
+
     }
 }
